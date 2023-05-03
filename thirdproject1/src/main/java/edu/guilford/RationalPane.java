@@ -126,8 +126,7 @@ public class RationalPane extends GridPane {
             // exceed max or min integer), an input with either
             // non-numbers or a /.
             // If it is a singular integer typed in, I want to add a /1 to the end of it.
-            // code that deals with these three errors through try catch
-            // Have an exception class is denom = 0; if denom = 0, throw exception
+            // code that deals with these three errors through try catch blocks
 
             // There are two "big" try and catch blocks and each try and catch block has a
             // try and catch block inside of it.
