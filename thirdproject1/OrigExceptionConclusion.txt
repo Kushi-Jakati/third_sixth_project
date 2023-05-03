@@ -1,0 +1,13 @@
+Hi Rob,
+
+When I first started trying to generate runtime errors, the first ones I had in mind was the number inputted in either
+the parsed numerator or denominator would exceed the maximum or minimum value that could be stored into an integer. The 
+second error I could think of was the user inputting a double, String, special character, or a single integer
+(without the format a/b). However, all these errors only threw out ArrayIndexOutOfBoundsException because of how I 
+parsed user input. Because of that, I ended with a lot of try-catch blocks within try-catch blocks and I didn't know 
+the exact run-time error the errors I predicted would actually generate until I went further in the try-catch blocks. 
+So I included a document detailing that process rather than a document listing all the errors I thought could occur and their
+subsequent exceptions (since all of them fell under the same exception at first). But just in case you wanted all the errors
+I thought of before altering the program, I've listed them in this txt document.
+
+Kushi 
