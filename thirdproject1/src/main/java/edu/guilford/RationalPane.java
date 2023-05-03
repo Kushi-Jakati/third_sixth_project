@@ -126,7 +126,8 @@ public class RationalPane extends GridPane {
             // exceed max or min integer), an input with either
             // non-numbers or a /.
             // If it is a singular integer typed in, I want to add a /1 to the end of it.
-            // code that deals with these three errors through try catch blocks
+            // code that deals with these three errors through try catch
+            // Have an exception class is denom = 0; if denom = 0, throw exception
 
             // There are two "big" try and catch blocks and each try and catch block has a
             // try and catch block inside of it.
@@ -191,8 +192,6 @@ public class RationalPane extends GridPane {
                                     if (text.charAt(i) == '/' && Character.isDigit(text.charAt(i - 1))) {
                                         // get index of first slash
                                         int slash1 = i;
-                                        // String moo = text.substring(0, i) + text.substring(i + 1);
-                                        // System.out.println(moo);
                                         // get index of last slash with a number after it and remove all slashes in
                                         // betweeen the first and last slash
                                         // iterating through each index of the string (BACKWARDS, with j (no confusion
@@ -204,16 +203,34 @@ public class RationalPane extends GridPane {
                                                 int slash2 = j;
                                                 // moo will be the string with the index before the slash1, and then the
                                                 // index after slash2
-                                                String moo = text.substring(0, slash1) + "/"
-                                                        + text.substring(slash2 + 1);
-                                                // ACCOUNT FOR STRING INDEX OUT OF BOUNDS EXCEPTION SOMEHOW??? DUNNO
-                                                // HOW??
+                                                int numerator = Integer.parseInt(text.substring(0, slash1));
+                                                int denominator = Integer.parseInt(text.substring(slash2 + 1));
+                                                if (denominator == 0) {
+                                                    throw new DenominatorIsZeroException("Denominator cannot be 0");
+                                                }
+                                                String moo = numerator + "/" + denominator;
                                                 System.out.println(moo);
                                                 // set everything appropriately
                                                 userRationalField.setText(moo);
                                                 userRationalLabel.setText("Rational Number: " + moo);
                                                 rational.setNumerator(Integer.parseInt(moo.substring(0, slash1)));
                                                 rational.setDenominator(Integer.parseInt(moo.substring(slash2 + 1)));
+                                                hasSlash = false;
+                                                //This else if is accounting for when denominator is typed in as a negative number
+                                            }else if(text.charAt(j) == '/' && text.charAt(j + 1) == '-' && Character.isDigit(text.charAt(j + 2))) {
+                                                // get index of last slash with a number after it
+                                                int slash2 = j;
+                                                // moo will be the string with the index before the slash1, and then the
+                                                // index after slash2
+                                                int numerator = Integer.parseInt(text.substring(0, slash1));
+                                                int denominator = Integer.parseInt(text.substring(slash2 + 1));
+                                                numerator = numerator * -1;
+                                                denominator = denominator * -1;
+                                                String moo = numerator + "/" + denominator;
+                                                userRationalField.setText(moo);
+                                                userRationalLabel.setText("Rational Number: " + moo);
+                                                rational.setNumerator(numerator);
+                                                rational.setDenominator(denominator);
                                                 hasSlash = false;
                                             }
                                         }
@@ -227,6 +244,9 @@ public class RationalPane extends GridPane {
                         }
                     } catch (StringIndexOutOfBoundsException s) {
                         System.out.println("StringIndexOutOfBoundsException: " + s.getMessage());
+                    } catch (DenominatorIsZeroException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
                     }
                 } catch (DenominatorIsZeroException e1) {
                     // TODO Auto-generated catch block
